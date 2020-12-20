@@ -8,7 +8,7 @@ const restaurantSchema = new Schema({
   name_en: String,
   category: String,
   image: String,
-  locatio: String,
+  location: String,
   phone: String,
   google_map: String,
   rating: String,
