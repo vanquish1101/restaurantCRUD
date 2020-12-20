@@ -6,6 +6,7 @@ const app = express()
 const Restaurant = require('./models/restaurant')
 const port = 3000
 const mongooose = require('mongoose')
+const restaurant = require('./models/restaurant')
 
 mongooose.connect('mongodb://localhost/restaurant', { useNewUrlParser: true, useUnifiedTopology: true })
 
@@ -91,6 +92,14 @@ app.post('/restaurant/:id/edit', (req, res) => {
       return restaurant.save()
     })
     .then(() => res.redirect(`/restaurant/${id}`))
+    .catch(error => console.log(error))
+})
+
+app.post('/restaurant/:id/delete', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findById(id)
+    .then(restaurant => restaurant.remove())
+    .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
 
