@@ -20,7 +20,7 @@
       <a href="./restaurant/new">Create</a>
       <div class="card-columns">
         {{#each restaurant}}
-        <a href="/restaurants/{{this._id}}" class="text-secondary">
+        <a href="/restaurant/{{this._id}}" class="text-secondary">
           <div class="card mb-3">
             <img class="card-img-top" src="{{this.image}}" alt="{{this.name}}">
             <div class="card-body p-3">
@@ -34,6 +34,7 @@
                 {{this.rating}}
                 <i class="fas fa-star fa-xs"></i>
               </span>
+              <a href="./restaurant/{{ this._id }}/edit">edit</a>
             </div>
           </div>
         </a>
