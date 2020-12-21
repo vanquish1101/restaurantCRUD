@@ -1,12 +1,11 @@
 const express = require('express')
-const restaurantList = require('./restaurants.json')
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
+const restaurantList = require('./restaurants.json')
 const app = express()
 const Restaurant = require('./models/restaurant')
 const port = 3000
 const mongooose = require('mongoose')
-const restaurant = require('./models/restaurant')
 
 mongooose.connect('mongodb://localhost/restaurant', { useNewUrlParser: true, useUnifiedTopology: true })
 
@@ -28,7 +27,7 @@ app.use(express.static('public'))
 app.get('/', (req, res) => {
   Restaurant.find()
     .lean()
-    .then(restaurant => res.render('index', { restaurant }))
+    .then(restaurants => res.render('index', { restaurants }))
     .catch(error => console.log(error))
 })
 
@@ -40,11 +39,11 @@ app.get('/restaurant/:id', (req, res) => {
     .catch(error => console.log(error))
 })
 
-app.get('/restaurant/new', (req, res) => {
+app.get('/restaurants/new', (req, res) => {
   return res.render('new')
 })
 
-app.post('/restaurant', (req, res) => {
+app.post('/restaurants', (req, res) => {
   const name = req.body.name
   const name_en = req.body.name_en
   const category = req.body.category
@@ -102,6 +101,7 @@ app.post('/restaurant/:id/delete', (req, res) => {
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
+
 
 app.get('/search', (req, res) => {
   const keyword = req.query.keyword
